@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import random
-from typing import List, Optional, Union
-
 
 class Colors(object):
     RED = "#dc3545"
@@ -174,17 +171,3 @@ class Colors(object):
         "#ff0000",
         "#ff4848",
     ]
-
-
-def random_colors(
-    colors: Optional[List[str]] = None,
-    num: int = 1,
-    replacement: bool = False,
-) -> Union[str, List[str]]:
-    if colors is None:
-        colors = Colors.PRESETS
-
-    sample_function = random.choices if replacement else random.sample
-    selected = sample_function(colors, k=num)
-
-    return selected if num > 1 else selected[0]
