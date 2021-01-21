@@ -6,6 +6,13 @@ from typing import List, Optional, Union
 from felis.palette import Colors
 
 
+def random_string(
+    length: int = 10,
+    chars: str = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+) -> str:
+    return "".join(random.choices(chars, k=length))
+
+
 def random_colors(
     colors: Optional[List[str]] = None,
     num: int = 1,
