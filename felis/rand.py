@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import importlib
 import random
 from typing import List, Optional, Union
 
@@ -16,13 +17,22 @@ def random_state(
 
 
 def set_seed(seed: int, debug: bool = False) -> None:
-    # pylint: disable=import-outside-toplevel
-    try:
-        import numpy as np
-        import torch
+    def _import(module):
+        try:
+            module = importlib.import_module(module)
+        except ModuleNotFoundError:
+            return None
 
-        random.seed(seed)
-        np.random.seed(seed)
+        return module
+
+    random.seed(seed)
+
+    numpy = _import("numpy")
+    if numpy:
+        numpy.random.seed(seed)
+
+    torch = _import("torch")
+    if torch:
         torch.manual_seed(seed)
         torch.random.manual_seed(seed)
         torch.cuda.manual_seed(seed)
@@ -32,8 +42,6 @@ def set_seed(seed: int, debug: bool = False) -> None:
             torch.backends.cudnn.enabled = False
             torch.backends.cudnn.benchmark = False
             torch.backends.cudnn.deterministic = True
-    except ModuleNotFoundError:
-        pass
 
 
 def random_string(
