@@ -2,9 +2,6 @@
 
 
 class Colors(object):
-    RED = "#dc3545"
-    GREEN = "#28a745"
-
     PRESETS = [
         "#800000",
         "#8B0000",
