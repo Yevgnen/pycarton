@@ -2,7 +2,6 @@
 
 import contextlib
 import os
-import subprocess
 import sys
 
 
@@ -17,7 +16,3 @@ def suppress_stdout(suppress: bool = True) -> None:
         finally:
             if suppress:
                 sys.stdout = stdout
-
-
-def copy_to_clipboard(content: str) -> None:
-    subprocess.run("pbcopy", universal_newlines=True, input=content, check=True)
