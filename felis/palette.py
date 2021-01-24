@@ -144,14 +144,15 @@ class Colors(object):
         "#FFFFFF",
     ]
 
-    RAINBOWS = [
-        "#5EBD3E",
-        "#FFB900",
-        "#F78200",
-        "#E23838",
-        "#973999",
-        "#009CDF",
-    ]
+    RAINBOWS = {
+        "red": "#FF0000",
+        "orange": "#FF7F00",
+        "yellow": "#FFFF00",
+        "green": "#00FF00",
+        "blue": "#0000FF",
+        "indigo": "#2E2B5F",
+        "violet": "#8B00FF",
+    }
 
     GREENS = [
         "#075800",
