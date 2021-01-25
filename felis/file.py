@@ -12,13 +12,15 @@ def normalize_path(p: str) -> str:
 
 class _Path(str):
     def __new__(cls, value):
-        return super().__new__(cls, normalize_path(value))
+        return super().__new__(cls, (value))
 
     def __call__(self, *paths):
-        paths = (self,) + paths
-        paths = tuple(os.path.normpath(p) for p in paths)
+        paths = (self,) + tuple(paths)
 
         return _Path(os.path.join(*paths))
+
+    def norm(self):
+        return self.__class__(normalize_path(self))
 
 
 def path(root: str) -> _Path:
