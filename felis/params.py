@@ -5,6 +5,7 @@ import json
 from typing import Mapping, Optional, Type, TypeVar
 
 import pytoml
+import yaml
 
 _T = TypeVar("_T", bound="Params")
 
@@ -36,6 +37,18 @@ class Params(dict):
 
     dumps = to_json_string
     dump = to_json
+
+    def to_yaml(
+        self, filename: str, file_kwargs: Optional[Mapping] = None, **kwargs
+    ) -> None:
+        if not file_kwargs:
+            file_kwargs = {"mode": "w"}
+
+        if not kwargs:
+            kwargs = {"explicit_start": True, "indent": 2}
+
+        with open(filename, **file_kwargs) as f:
+            yaml.dump(dict(self), f, **kwargs)
 
     def to_toml(
         self, filename: str, file_kwargs: Optional[Mapping] = None, **kwargs
@@ -72,3 +85,16 @@ class Params(dict):
 
         with open(filename, **file_kwargs) as f:
             return cls(pytoml.load(f, **kwargs))
+
+    @classmethod
+    def from_yaml(
+        cls: Type[_T], filename: str, file_kwargs: Optional[Mapping] = None, **kwargs
+    ) -> _T:
+        if not file_kwargs:
+            file_kwargs = {"mode": "r"}
+
+        if not kwargs:
+            kwargs = {"Loader": yaml.Loader}
+
+        with open(filename, **file_kwargs) as f:
+            return cls(yaml.load(f, **kwargs))

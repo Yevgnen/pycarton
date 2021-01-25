@@ -29,7 +29,7 @@ setup(
     author_email="wherejoystarts@gmail.com",
     packages=find_packages(exclude=("tests", "tests.*")),
     include_package_data=True,
-    install_requires=["pytoml"],
+    install_requires=["pytoml", "pyyaml"],
     test_suite="tests",
     zip_safe=False,
 )
