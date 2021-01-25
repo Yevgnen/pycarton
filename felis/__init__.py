@@ -7,6 +7,7 @@ import felis.io
 import felis.logger
 import felis.palette
 import felis.params
+import felis.pytorch
 import felis.random
 import felis.utils
 
