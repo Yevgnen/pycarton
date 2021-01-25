@@ -8,6 +8,7 @@ import felis.logger
 import felis.palette
 import felis.params
 import felis.random
+import felis.reflection
 import felis.utils
 
 __version__ = "0.1.0"
