@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import felis.collections
 import felis.datetime
 import felis.file
 import felis.io
