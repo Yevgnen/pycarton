@@ -17,6 +17,7 @@ def better_display() -> None:
 def identity(x: Any) -> Any:
     return x
 
+
 def git_version(dirname: str) -> str:
     if not shutil.which("git"):
         return None
