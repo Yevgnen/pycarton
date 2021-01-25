@@ -6,6 +6,25 @@ import os
 from typing import Iterable, Tuple, Union
 
 
+def normalize_path(p: str) -> str:
+    return os.path.abspath(os.path.expanduser(p))
+
+
+class _Path(str):
+    def __new__(cls, value):
+        return super().__new__(cls, normalize_path(value))
+
+    def __call__(self, *paths):
+        paths = (self,) + paths
+        paths = tuple(os.path.normpath(p) for p in paths)
+
+        return _Path(os.path.join(*paths))
+
+
+def path(root: str) -> _Path:
+    return _Path(root)
+
+
 def iter_file_groups(
     dirname: str,
     exts: Union[str, Iterable[str]],

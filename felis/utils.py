@@ -17,26 +17,6 @@ def better_display() -> None:
 def identity(x: Any) -> Any:
     return x
 
-
-def normalize_path(p: str) -> str:
-    return os.path.abspath(os.path.expanduser(p))
-
-
-class _Path(str):
-    def __new__(cls, value):
-        return super().__new__(cls, normalize_path(value))
-
-    def __call__(self, *paths):
-        paths = (self,) + paths
-        paths = tuple(os.path.normpath(p) for p in paths)
-
-        return _Path(os.path.join(*paths))
-
-
-def path(root: str) -> _Path:
-    return _Path(root)
-
-
 def git_version(dirname: str) -> str:
     if not shutil.which("git"):
         return None
