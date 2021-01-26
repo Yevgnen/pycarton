@@ -48,7 +48,7 @@ class Params(dict):
             kwargs = {"explicit_start": True, "indent": 2}
 
         with open(filename, **file_kwargs) as f:
-            yaml.dump(dict(self), f, **kwargs)
+            yaml.safe_dump(dict(self), f, **kwargs)
 
     def to_toml(
         self, filename: str, file_kwargs: Optional[Mapping] = None, **kwargs
@@ -93,8 +93,5 @@ class Params(dict):
         if not file_kwargs:
             file_kwargs = {"mode": "r"}
 
-        if not kwargs:
-            kwargs = {"Loader": yaml.Loader}
-
         with open(filename, **file_kwargs) as f:
-            return cls(yaml.load(f, **kwargs))
+            return cls(yaml.safe_load(f, **kwargs))
