@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "felis"
 version = "0.1.0"
-description = ""
+description = "Python toolbox."
 authors = ["Yevgnen Koh <wherejoystarts@gmail.com>"]
 
 [tool.poetry.dependencies]
