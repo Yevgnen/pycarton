@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import contextlib
 import importlib
 import random
 from typing import List, Optional, Union
@@ -42,6 +43,16 @@ def set_seed(seed: int, debug: bool = False) -> None:
             torch.backends.cudnn.enabled = False
             torch.backends.cudnn.benchmark = False
             torch.backends.cudnn.deterministic = True
+
+
+@contextlib.contextmanager
+def seed(random_seed: int):
+    state = random.getstate()
+    random.seed(random_seed)
+    try:
+        yield
+    finally:
+        random.setstate(state)
 
 
 def random_string(
