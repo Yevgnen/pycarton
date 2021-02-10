@@ -1,8 +1,9 @@
 [tool.poetry]
-name = "felis"
-version = "0.2.0"
+name = "pycarton"
+version = "0.1.0"
 description = "Python toolbox."
 authors = ["Yevgnen Koh <wherejoystarts@gmail.com>"]
+packages = [ { include = "carton" } ]
 
 [tool.poetry.dependencies]
 python = "^3.8"

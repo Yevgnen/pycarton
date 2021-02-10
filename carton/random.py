@@ -5,7 +5,7 @@ import importlib
 import random
 from typing import List, Optional, Union
 
-from felis.palette import Colors
+from carton.palette import Colors
 
 
 def random_state(

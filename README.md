@@ -9,20 +9,20 @@
 
 # Introduction
 
-`felis` is a Python toolbox.
+`pycarton` is a Python toolbox.
 
 # Installation
 
 ## From pip
 
 ``` bash
-pip install felis
+pip install pycarton
 ```
 
 ## From source
 
 ``` bash
-pip install git+https://github.com/Yevgnen/felis.git
+pip install git+https://github.com/Yevgnen/pycarton.git
 ```
 
 # Contribution

@@ -1,4 +1,4 @@
-#+title: Felis
+#+title: pycarton
 #+options: ^:nil
 
 * Table of Contents :TOC:
@@ -11,20 +11,20 @@
 
 * Introduction
 
-~felis~ is a Python toolbox.
+~pycarton~ is a Python toolbox.
 
 * Installation
 
 ** From pip
 
 #+begin_src sh
-pip install felis
+pip install pycarton
 #+end_src
 
 ** From source
 
 #+begin_src sh
-pip install git+https://github.com/Yevgnen/felis.git
+pip install git+https://github.com/Yevgnen/pycarton.git
 #+end_src
 
 * Contribution

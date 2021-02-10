@@ -18,13 +18,13 @@ def find_version(*paths):
         return match.group("ver")
 
 
-VERSION = find_version("felis", "__init__.py")
+VERSION = find_version("carton", "__init__.py")
 
 setup(
-    name="felis",
+    name="carton",
     description="Python toolbox.",
     version=VERSION,
-    url="https://github.com/Yevgnen/felis",
+    url="https://github.com/Yevgnen/carton",
     author="Yevgnen Koh",
     author_email="wherejoystarts@gmail.com",
     packages=find_packages(exclude=("tests", "tests.*")),

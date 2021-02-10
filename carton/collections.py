@@ -4,7 +4,7 @@ import collections
 import warnings
 from typing import Any, Callable, Dict, Iterable, Mapping, Optional, Sequence, Union
 
-from felis.utils import identity
+from carton.utils import identity
 
 
 def iterable(x: Any) -> bool:
