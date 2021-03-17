@@ -64,3 +64,21 @@ def iter_file_groups(
             raise RuntimeError(f"Missing files: {key}.{exts}")
 
         yield (key, group) if with_key else group
+
+
+def read_lines(filename: str, chunk_size: int = 64 * 1024) -> Iterable[str]:
+    with open(filename, mode="r") as f:
+        remaining = ""
+        while True:
+            chunk = f.read(chunk_size)
+            if not chunk:
+                break
+
+            linefeed = chunk.rfind("\n")
+            if linefeed > 0:
+                chunk, remaining = remaining + chunk[:linefeed], chunk[linefeed + 1 :]
+            else:
+                remaining = ""
+
+            for line in chunk.split("\n"):
+                yield line
