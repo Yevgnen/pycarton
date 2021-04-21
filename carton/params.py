@@ -5,7 +5,7 @@ import json
 from typing import Mapping, Optional, Type, TypeVar
 
 import pytoml
-import yaml
+from ruyaml import YAML
 
 _T = TypeVar("_T", bound="Params")
 
@@ -45,10 +45,10 @@ class Params(dict):
             file_kwargs = {"mode": "w"}
 
         if not kwargs:
-            kwargs = {"explicit_start": True, "indent": 2}
+            kwargs = {}
 
         with open(filename, **file_kwargs) as f:
-            yaml.safe_dump(dict(self), f, **kwargs)
+            YAML().dump(dict(self), f, **kwargs)
 
     def to_toml(
         self, filename: str, file_kwargs: Optional[Mapping] = None, **kwargs
@@ -94,4 +94,4 @@ class Params(dict):
             file_kwargs = {"mode": "r"}
 
         with open(filename, **file_kwargs) as f:
-            return cls(yaml.safe_load(f, **kwargs))
+            return cls(YAML(typ="safe").load(f, **kwargs))
