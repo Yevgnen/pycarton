@@ -2,6 +2,28 @@
 
 from typing import Any, Dict, Optional, Sequence, Tuple, Union
 
+import numpy as np
+
+
+def describe_series(
+    s: Sequence, r: int = 2, qs: Optional[Sequence[int]] = None
+) -> Dict:
+    if not qs:
+        qs = [10, 25, 50, 75, 90, 95, 99]
+    info = {
+        "size": len(s),
+        "mean": float(np.mean(s).round(r)),
+        "std": float(np.std(s).round(r)),
+        "min": float(np.min(s)),
+        "max": float(np.max(s)),
+    }
+
+    percentiles = np.percentile(s, qs).round(r)
+    for q, p in zip(qs, percentiles):
+        info.update({f"{q}%": p.round(r)})
+
+    return info
+
 
 def split(
     data: Sequence,
@@ -24,7 +46,7 @@ def split(
             test_size=size,
             random_state=random_state,
             shuffle=shuffle,
-            stratify=stratify
+            stratify=stratify,
         )
 
         return splits
