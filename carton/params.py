@@ -7,11 +7,11 @@ from typing import Mapping, Optional, Type, TypeVar
 import pytoml
 from ruyaml import YAML
 
-_T = TypeVar("_T", bound="Params")
-
 
 class Params(dict):
-    def copy(self) -> _T:
+    T = TypeVar("T", bound="Params")
+
+    def copy(self) -> T:
         return copy.deepcopy(self)
 
     def merge(self, default: Mapping) -> None:
@@ -60,13 +60,13 @@ class Params(dict):
             pytoml.dump(self, f, **kwargs)
 
     @classmethod
-    def from_json_string(cls: Type[_T], json_string: str, **kwargs) -> _T:
+    def from_json_string(cls: Type[T], json_string: str, **kwargs) -> T:
         return cls(json.loads(json_string, **kwargs))
 
     @classmethod
     def from_json(
-        cls: Type[_T], filename: str, file_kwargs: Optional[Mapping] = None, **kwargs
-    ) -> _T:
+        cls: Type[T], filename: str, file_kwargs: Optional[Mapping] = None, **kwargs
+    ) -> T:
         if not file_kwargs:
             file_kwargs = {"mode": "r"}
 
@@ -78,8 +78,8 @@ class Params(dict):
 
     @classmethod
     def from_toml(
-        cls: Type[_T], filename: str, file_kwargs: Optional[Mapping] = None, **kwargs
-    ) -> _T:
+        cls: Type[T], filename: str, file_kwargs: Optional[Mapping] = None, **kwargs
+    ) -> T:
         if not file_kwargs:
             file_kwargs = {"mode": "r"}
 
@@ -88,8 +88,8 @@ class Params(dict):
 
     @classmethod
     def from_yaml(
-        cls: Type[_T], filename: str, file_kwargs: Optional[Mapping] = None, **kwargs
-    ) -> _T:
+        cls: Type[T], filename: str, file_kwargs: Optional[Mapping] = None, **kwargs
+    ) -> T:
         if not file_kwargs:
             file_kwargs = {"mode": "r"}
 
