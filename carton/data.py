@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import statistics
 from typing import Any, Dict, Optional, Sequence, Tuple, Union
 
 import numpy as np
@@ -12,6 +13,7 @@ def describe_series(
         qs = [10, 25, 50, 75, 90, 95, 99]
     info = {
         "size": len(s),
+        "mode": statistics.mode(s),
         "mean": float(np.mean(s).round(r)),
         "std": float(np.std(s).round(r)),
         "min": float(np.min(s)),
