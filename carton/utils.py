@@ -3,7 +3,9 @@
 import os
 import shutil
 import subprocess
-from typing import Any
+from typing import TypeVar
+
+T = TypeVar("T")
 
 
 def better_display() -> None:
@@ -14,7 +16,7 @@ def better_display() -> None:
     pd.set_option("display.unicode.ambiguous_as_wide", True)
 
 
-def identity(x: Any) -> Any:
+def identity(x: T) -> T:
     return x
 
 
