@@ -2,13 +2,40 @@
 
 import collections
 import warnings
-from typing import Any, Callable, Dict, Iterable, Mapping, Optional, Sequence, Union
+from typing import (
+    Any,
+    Callable,
+    Dict,
+    Hashable,
+    Iterable,
+    Mapping,
+    Optional,
+    Sequence,
+    Tuple,
+    Union,
+)
 
 from carton.utils import identity
 
 
 def iterable(x: Any) -> bool:
     return isinstance(x, collections.abc.Iterable) and not isinstance(x, (str, bytes))
+
+
+def dict_to_tuple(d: Mapping, keys: Optional[Iterable[Hashable]] = None) -> Tuple:
+    if not keys:
+        return tuple(d.values())
+
+    return tuple(d[x] for x in keys)
+
+
+def get_dict_to_tuple_function(keys: Iterable[Hashable]) -> Callable[[Mapping], Tuple]:
+    keys = list(keys)
+
+    def f(d):
+        return dict_to_tuple(d, keys)
+
+    return f
 
 
 def flatten_dict(d: Mapping, sep: str = ".") -> Dict[str, Any]:
