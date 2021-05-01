@@ -2,7 +2,7 @@
 
 import logging
 import sys
-from typing import Optional, Union
+from typing import Mapping, Optional, Union
 
 
 def _setup_handlers(logger, handlers=None, reset=True):
@@ -56,3 +56,8 @@ def setup_logger(
             kwargs["force"] = force
 
     logging.basicConfig(**kwargs)
+
+
+def log_dict(_logger: logging.Logger, d: Mapping, sep: str = " = ") -> None:
+    for key, value in d.items():
+        _logger.info(f"{key}{sep}{value}")
