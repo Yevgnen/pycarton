@@ -28,6 +28,9 @@ setup(
     author="Yevgnen Koh",
     author_email="wherejoystarts@gmail.com",
     packages=find_packages(exclude=("tests", "tests.*")),
+    package_data={
+        "carton": ["py.typed"],
+    },
     include_package_data=True,
     install_requires=[
         "pytoml",
