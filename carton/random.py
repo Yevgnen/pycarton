@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import annotations
+
 import contextlib
 import importlib
 import random
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 from carton.palette import Colors
 
@@ -63,10 +65,10 @@ def random_string(
 
 
 def random_colors(
-    colors: Optional[List[str]] = None,
+    colors: Optional[list[str]] = None,
     num: int = 1,
     replacement: bool = False,
-) -> Union[str, List[str]]:
+) -> Union[str, list[str]]:
     if colors is None:
         colors = Colors.PRESETS
 

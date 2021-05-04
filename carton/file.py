@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import annotations
+
 import glob
 import itertools
 import os
-from typing import Iterable, Tuple, Union
+from collections.abc import Iterable
+from typing import Union
 
 
 def normalize_path(p: str) -> str:
@@ -33,7 +36,7 @@ def iter_file_groups(
     with_key: bool = False,
     missing: str = "error",
 ) -> Union[
-    Iterable[str], Iterable[Tuple[str, ...]], Tuple[str, Iterable[Tuple[str, ...]]]
+    Iterable[str], Iterable[tuple[str, ...]], tuple[str, Iterable[tuple[str, ...]]]
 ]:
     def _format_ext(ext):
         return f'.{ext.lstrip(".")}'

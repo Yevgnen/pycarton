@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import annotations
+
 import copy
 import json
-from typing import Mapping, Optional, Type, TypeVar
+from collections.abc import Mapping
+from typing import Optional, Type, TypeVar
 
 import pytoml
 from ruyaml import YAML

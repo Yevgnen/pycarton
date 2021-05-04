@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import annotations
+
 import logging
 import sys
-from typing import Mapping, Optional, Union
+from collections.abc import Mapping
+from typing import Optional, Union
 
 
 def _setup_handlers(logger, handlers=None, reset=True):

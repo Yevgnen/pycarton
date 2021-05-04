@@ -1,19 +1,11 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import annotations
+
 import collections
 import warnings
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Hashable,
-    Iterable,
-    Mapping,
-    Optional,
-    Sequence,
-    Tuple,
-    Union,
-)
+from collections.abc import Callable, Iterable, Mapping, Sequence
+from typing import Any, Hashable, Optional, Union
 
 from carton.utils import identity
 
@@ -22,14 +14,14 @@ def iterable(x: Any) -> bool:
     return isinstance(x, collections.abc.Iterable) and not isinstance(x, (str, bytes))
 
 
-def dict_to_tuple(d: Mapping, keys: Optional[Iterable[Hashable]] = None) -> Tuple:
+def dict_to_tuple(d: Mapping, keys: Optional[Iterable[Hashable]] = None) -> tuple:
     if not keys:
         return tuple(d.values())
 
     return tuple(d[x] for x in keys)
 
 
-def get_dict_to_tuple_function(keys: Iterable[Hashable]) -> Callable[[Mapping], Tuple]:
+def get_dict_to_tuple_function(keys: Iterable[Hashable]) -> Callable[[Mapping], tuple]:
     keys = list(keys)
 
     def f(d):
@@ -38,7 +30,7 @@ def get_dict_to_tuple_function(keys: Iterable[Hashable]) -> Callable[[Mapping], 
     return f
 
 
-def flatten_dict(d: Mapping, sep: str = ".") -> Dict[str, Any]:
+def flatten_dict(d: Mapping, sep: str = ".") -> dict[str, Any]:
     flattened = {}
 
     def _flatten(d, prefix):
@@ -58,7 +50,7 @@ def flatten_dict(d: Mapping, sep: str = ".") -> Dict[str, Any]:
     return flattened
 
 
-def roughen_dict(d: Mapping[str, Any], sep: str = ".") -> Dict[str, Any]:
+def roughen_dict(d: Mapping[str, Any], sep: str = ".") -> dict[str, Any]:
     roughen = {}
     for key, value in d.items():
         if isinstance(value, collections.abc.Mapping):
@@ -93,7 +85,7 @@ def collate(
     data: Iterable[Mapping],
     keys: Optional[Sequence] = None,
     collate_fn: Union[Callable, Mapping[str, Callable]] = identity,
-) -> Dict:
+) -> dict:
     def _get_collate_fn(key=None):
         if isinstance(collate_fn, collections.abc.Mapping):
             return collate_fn.get(key, identity)

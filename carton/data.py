@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import annotations
+
 import statistics
-from typing import Any, Dict, Optional, Sequence, Tuple, Union
+from collections.abc import Sequence
+from typing import Any, Optional, Union
 
 import numpy as np
 
 
 def describe_series(
     s: Sequence, r: int = 2, qs: Optional[Sequence[int]] = None
-) -> Dict:
+) -> dict:
     if not qs:
         qs = [10, 25, 50, 75, 90, 95, 99]
     info = {
@@ -34,7 +37,7 @@ def split(
     random_state: Optional[int] = None,
     shuffle: bool = True,
     stratify: Optional[Sequence] = None,
-) -> Union[Dict[str, Any], Dict[str, Tuple]]:
+) -> Union[dict[str, Any], dict[str, tuple]]:
     # pylint: disable=import-outside-toplevel
     from sklearn.model_selection import train_test_split
 
