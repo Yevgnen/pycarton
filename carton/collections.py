@@ -5,7 +5,7 @@ from __future__ import annotations
 import collections
 import warnings
 from collections.abc import Callable, Iterable, Mapping, Sequence
-from typing import Any, Hashable, Optional, Union
+from typing import Any, Hashable, Optional, Type, Union
 
 from carton.utils import identity
 
@@ -84,11 +84,15 @@ def chain_get(d: Mapping, keys: Union[str, Sequence[str]], sep=".") -> Any:
 def collate(
     data: Iterable[Mapping],
     keys: Optional[Sequence] = None,
-    collate_fn: Union[Callable, Mapping[str, Callable]] = identity,
+    collate_fn: Union[Callable, Mapping[Union[str, Type], Callable]] = identity,
 ) -> dict:
-    def _get_collate_fn(key=None):
+    def _get_collate_fn(key=None, value_type=None):
         if isinstance(collate_fn, collections.abc.Mapping):
-            return collate_fn.get(key, identity)
+            fn = collate_fn.get(key)
+            if fn is None:
+                fn = collate_fn.get(value_type, identity)
+
+            return fn
 
         return collate_fn
 
@@ -111,7 +115,10 @@ def collate(
         for key in keys or first_keys:
             collated[key] += [x[key]]
 
-    collated = {key: _get_collate_fn(key)(value) for key, value in collated.items()}
+    collated = {
+        key: _get_collate_fn(key, value[0].__class__)(value)
+        for key, value in collated.items()
+    }
 
     if len(collated) > 1:
         return collated
