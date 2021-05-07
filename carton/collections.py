@@ -15,6 +15,17 @@ def iterable(x: Any) -> bool:
 
 
 def dict_to_tuple(d: Mapping, keys: Optional[Iterable[Hashable]] = None) -> tuple:
+    """Convert dict values to tuple.
+
+    Args:
+        d: An instance of subclass of :class:`collections.abc.Mapping`.
+        keys: Keys to gather values from the mapping. `d.keys()` will
+            be used if None. The return tuple elements will be
+            ordered by keys. (default: None)
+
+    Returns:
+        A tuple with elements ordered by given keys.
+    """
     if not keys:
         return tuple(d.values())
 

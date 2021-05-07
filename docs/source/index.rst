@@ -6,10 +6,13 @@
 Welcome to pycarton's documentation!
 ====================================
 
+.. automodule:: carton
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Package Reference
 
+   collections
 
 
 Indices and tables
