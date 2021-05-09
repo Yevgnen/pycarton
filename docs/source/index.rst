@@ -14,6 +14,7 @@ Welcome to pycarton's documentation!
 
    collections
    logger
+   random
 
 
 Indices and tables
