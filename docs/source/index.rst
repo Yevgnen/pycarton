@@ -13,6 +13,7 @@ Welcome to pycarton's documentation!
    :caption: Package Reference
 
    collections
+   logger
 
 
 Indices and tables

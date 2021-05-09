@@ -41,6 +41,24 @@ def setup_logger(
     filename: Optional[Union[str, bytes, os.PathLike]] = None,
     **kwargs,
 ) -> None:
+    """Setup logger.
+
+    Args:
+        logger: The logger to setup. (defualt: None)
+        level: Logger level. (default: logging.INFO)
+        format: Logger format.
+            (default: "%(asctime)s %(name)s %(levelname)s: %(message)s")
+        force: Force reset the logger if True. (default: True)
+        stream: Add stream handler :class:`logging.StreamHandler` to
+            logger if True. (default: True)
+        filename: Add file handler :class:`logging.FileHandler` to
+            logger if given filename. (default: None)
+        **kwargs: Optional keyword args to be passed
+            to :func:`logging.basicConfig`.
+
+    Returns:
+        None
+    """
     handlers = []
     if stream:
         handlers += [logging.StreamHandler()]
