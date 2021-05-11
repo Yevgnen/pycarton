@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import os
 import sys
 from collections.abc import Mapping
 from typing import Optional, Union
@@ -37,7 +38,7 @@ def setup_logger(
     format: str = "%(asctime)s %(name)s %(levelname)s: %(message)s",
     force: bool = True,
     stream: bool = True,
-    filename: str = None,
+    filename: Optional[Union[str, bytes, os.PathLike]] = None,
     **kwargs,
 ) -> None:
     handlers = []
