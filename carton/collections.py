@@ -94,7 +94,7 @@ def collate(
         return collate_fn
 
     if keys is not None and (
-        not isinstance(keys, collections.abc.Sequence) or isinstance(keys, str)
+        not isinstance(keys, collections.abc.Sequence) or isinstance(keys, (str, bytes))
     ):
         keys = [keys]
 
