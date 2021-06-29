@@ -13,7 +13,7 @@ def describe_series(
     s: Sequence, r: int = 2, qs: Optional[Sequence[int]] = None
 ) -> dict:
     if not qs:
-        qs = [10, 25, 50, 75, 90, 95, 99]
+        qs = [10, 25, 50, 75, 90, 95, 99, 99.9, 99.99]
     info = {
         "size": len(s),
         "mode": statistics.mode(s),
