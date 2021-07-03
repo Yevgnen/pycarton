@@ -49,7 +49,9 @@ def timestamp_to_datetime(timestamp: float) -> datetime.datetime:
     return timestamp10_to_datetime(timestamp)
 
 
-def date(offset: int = 0, return_date: bool = False) -> datetime.date:
+def date(
+    offset: int = 0, return_date: bool = False
+) -> Union[datetime.datetime, datetime.date]:
     _date = datetime.datetime.now() + datetime.timedelta(days=offset)
     if return_date:
         return _date.date()

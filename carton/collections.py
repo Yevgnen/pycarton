@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import collections
+import itertools
 import warnings
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any, Hashable, Optional, Union
@@ -93,7 +94,7 @@ def collate(
         return collate_fn
 
     if keys is not None and (
-        not isinstance(keys, collections.abc.Sequence) or isinstance(keys, str)
+        not isinstance(keys, collections.abc.Sequence) or isinstance(keys, (str, bytes))
     ):
         keys = [keys]
 
@@ -117,3 +118,10 @@ def collate(
         return collated
 
     return next(iter(collated.values()))
+
+
+def chunk(it: Iterable, size: int) -> Iterable:
+    # Credit: https://stackoverflow.com/a/22045226/1831512
+    it = iter(it)
+
+    return iter(lambda: tuple(itertools.islice(it, size)), ())
