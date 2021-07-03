@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pycarton"
-version = "0.3.0"
+version = "0.3.1"
 description = "Python toolbox."
 authors = ["Yevgnen Koh <wherejoystarts@gmail.com>"]
 packages = [ { include = "carton" } ]
