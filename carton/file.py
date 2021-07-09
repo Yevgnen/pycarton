@@ -6,7 +6,7 @@ import glob
 import itertools
 import os
 from collections.abc import Iterable
-from typing import Union
+from typing import Callable, Union
 
 
 def normalize_path(p: str) -> str:
@@ -85,3 +85,18 @@ def read_lines(filename: str, chunk_size: int = 64 * 1024) -> Iterable[str]:
 
             for line in chunk.split("\n"):
                 yield line
+
+
+def iter_lines(
+    filename: str,
+    ignore_empty: bool = True,
+    strip: bool = True,
+    transform: Callable[[str], str] = lambda x: x,
+) -> Iterable[str]:
+    with open(filename, mode="r") as f:
+        for line in f:
+            if strip:
+                line = line.rstrip()
+
+            if line or not ignore_empty:
+                yield transform(line)
