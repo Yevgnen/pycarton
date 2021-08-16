@@ -21,7 +21,7 @@ def find_version(*paths):
 VERSION = find_version("carton", "__init__.py")
 
 setup(
-    name="carton",
+    name="pycarton",
     description="Python toolbox.",
     version=VERSION,
     url="https://github.com/Yevgnen/carton",
