@@ -84,8 +84,8 @@ def chain_get(d: Mapping, keys: Union[str, Sequence[str]], sep=".") -> Any:
 
 def collate(
     data: Iterable[Mapping],
-    keys: Optional[Sequence] = None,
-    collate_fn: Union[Callable, Mapping[str, Callable]] = identity,
+    keys: Optional[Sequence[Hashable]] = None,
+    collate_fn: Optional[Union[Callable, Mapping[Hashable, Callable]]] = None,
 ) -> dict:
     def _get_collate_fn(key=None):
         if isinstance(collate_fn, collections.abc.Mapping):
@@ -93,28 +93,31 @@ def collate(
 
         return collate_fn
 
-    if keys is not None and (
-        not isinstance(keys, collections.abc.Sequence) or isinstance(keys, (str, bytes))
-    ):
+    it = iter(data)
+
+    first: Mapping = next(it, {})
+    first_keys = first.keys()
+
+    if not keys:
+        keys = list(first_keys)
+    elif not iterable(keys):
         keys = [keys]
 
-    collated = collections.defaultdict(list)
-    first_keys = None
-    for x in data:
+    collated: dict = {}
+    for x in itertools.chain((first,), it):
         if not isinstance(x, collections.abc.Mapping):
             raise TypeError(f"Not a mapping: {x}")
 
-        if first_keys is None:
-            first_keys = x.keys()
-        elif first_keys != x.keys():
-            raise ValueError(f"Inconsistent keys: {first_keys} != {x.keys()}")
+        if first_keys != x.keys():
+            raise ValueError(f"Inconsistent keys:{first_keys!r} != {x.keys()!r}")
 
-        for key in keys or first_keys:
-            collated[key] += [x[key]]
+        for key in keys:
+            collated.setdefault(key, []).append(x[key])
 
-    collated = {key: _get_collate_fn(key)(value) for key, value in collated.items()}
+    if collate_fn is not None:
+        collated = {key: _get_collate_fn(key)(value) for key, value in collated.items()}
 
-    if len(collated) > 1:
+    if len(collated) > 1 or len(collated) == 0:
         return collated
 
     return next(iter(collated.values()))
