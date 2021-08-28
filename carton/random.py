@@ -19,32 +19,50 @@ def random_state(
     return random.randint(low, high)
 
 
-def set_seed(seed: int, debug: bool = False) -> None:
-    def _import(module):
-        try:
-            module = importlib.import_module(module)
-        except ModuleNotFoundError:
-            return None
+def _import_module(module):
+    try:
+        module = importlib.import_module(module)
+    except ModuleNotFoundError:
+        return None
 
-        return module
+    return module
+
+
+def set_seed(seed: int, debug: bool = False) -> tuple:
+    states: tuple = (random.getstate(),)
 
     random.seed(seed)
 
-    numpy = _import("numpy")
+    numpy = _import_module("numpy")
     if numpy:
+        states += (numpy.random.get_state(),)
         numpy.random.seed(seed)
 
-    torch = _import("torch")
+    torch = _import_module("torch")
     if torch:
+        cuda = torch.cuda.is_available()
+
+        states += (
+            torch.get_rng_state(),
+            torch.cuda.get_rng_state() if cuda else None,
+            torch.cuda.get_rng_state_all() if cuda else None,
+        )
         torch.manual_seed(seed)
         torch.random.manual_seed(seed)
         torch.cuda.manual_seed(seed)
         torch.cuda.manual_seed_all(seed)
 
         if debug:
+            states += (
+                torch.backends.cudnn.enabled,
+                torch.backends.cudnn.benchmark,
+                torch.backends.cudnn.deterministic,
+            )
             torch.backends.cudnn.enabled = False
             torch.backends.cudnn.benchmark = False
             torch.backends.cudnn.deterministic = True
+
+    return states
 
 
 @contextlib.contextmanager
