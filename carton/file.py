@@ -19,10 +19,8 @@ class _Path(str):
     def __new__(cls, value):
         return super().__new__(cls, (value))
 
-    def __call__(self, *paths):
-        paths = (self,) + tuple(paths)
-
-        return _Path(os.path.join(*paths))
+    def __truediv__(self, path):
+        return _Path(os.path.join(self, path))
 
     def norm(self):
         return self.__class__(normalize_path(self))
