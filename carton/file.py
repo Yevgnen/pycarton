@@ -19,17 +19,12 @@ class _Path(str):
     def __new__(cls, value):
         return super().__new__(cls, (value))
 
-    def __call__(self, *paths):
-        paths = (self,) + tuple(paths)
-
-        return _Path(os.path.join(*paths))
-
     def norm(self):
         return self.__class__(normalize_path(self))
 
-    def __truediv__(self, *paths):
-        paths = (f"{str(path).lstrip('/')}" for path in paths)
-        return self.__call__(*paths)
+    def __truediv__(self, path):
+        path = f"{str(path).lstrip('/')}"
+        return _Path(os.path.join(self, path))
 
     
 def path(root: str) -> _Path:
