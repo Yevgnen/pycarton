@@ -5,6 +5,7 @@ from __future__ import annotations
 import contextlib
 import importlib
 import random
+from collections.abc import Iterator
 from typing import Optional, Union
 
 from carton.palette import Colors
@@ -66,7 +67,7 @@ def set_seed(seed: int, debug: bool = False) -> tuple:
 
 
 @contextlib.contextmanager
-def seed(random_seed: int):
+def seed(random_seed: int) -> Iterator[None]:
     state = random.getstate()
     random.seed(random_seed)
     try:
