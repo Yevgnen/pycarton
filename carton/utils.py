@@ -22,7 +22,7 @@ def identity(x: T) -> T:
 
 def git_version(dirname: str) -> str:
     if not shutil.which("git"):
-        return None
+        raise RuntimeError("Command not found: git")
 
     dirname = os.path.abspath(os.path.expanduser(dirname))
     if not os.path.isdir(dirname):
@@ -44,7 +44,7 @@ def git_version(dirname: str) -> str:
             stderr=subprocess.DEVNULL,
             cwd=dirname,
         )
-    except subprocess.CalledProcessError:
-        return None
+    except subprocess.CalledProcessError as e:
+        raise RuntimeError(f"Failed to fetch git verions: {e!s}") from e
 
     return proc.stdout.decode().strip()
