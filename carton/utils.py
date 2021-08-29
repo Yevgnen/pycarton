@@ -45,6 +45,6 @@ def git_version(dirname: str) -> str:
             cwd=dirname,
         )
     except subprocess.CalledProcessError as e:
-        raise RuntimeError(f"Failed to fetch git verions: {e!s}") from e
+        raise RuntimeError(f"Failed to fetch git version: {e!s}") from e
 
     return proc.stdout.decode().strip()
