@@ -19,13 +19,13 @@ class _Path(str):
     def __new__(cls, value):
         return super().__new__(cls, (value))
 
-    def norm(self):
-        return self.__class__(normalize_path(self))
-
     def __truediv__(self, path):
         return _Path(os.path.join(self, path))
 
-    
+    def norm(self):
+        return self.__class__(normalize_path(self))
+
+
 def path(root: str) -> _Path:
     return _Path(root)
 
