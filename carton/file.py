@@ -27,6 +27,10 @@ class _Path(str):
     def norm(self):
         return self.__class__(normalize_path(self))
 
+    def __truediv__(self, *paths):
+        paths = (f"{str(path).lstrip('/')}" for path in paths)
+        return self.__call__(*paths)
+
 
 def path(root: str) -> _Path:
     return _Path(root)
