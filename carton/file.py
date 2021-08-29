@@ -32,7 +32,6 @@ class _Path(str):
         return self.__call__(*paths)
 
     
-
 def path(root: str) -> _Path:
     return _Path(root)
 
