@@ -64,11 +64,11 @@ def iter_file_groups(
     for key, group in itertools.groupby(
         sorted(files), key=lambda x: os.path.splitext(os.path.relpath(x, dirname))[0]
     ):
-        group = sorted(group, key=lambda x: os.path.splitext(x)[1])
-        if len(group) != num_exts and missing == "error":
+        sorted_group = sorted(group, key=lambda x: os.path.splitext(x)[1])
+        if len(sorted_group) != num_exts and missing == "error":
             raise RuntimeError(f"Missing files: {key}.{exts}")
 
-        yield (key, group) if with_key else group
+        yield (key, sorted_group) if with_key else sorted_group
 
 
 def read_lines(filename: str, chunk_size: int = 64 * 1024) -> Iterable[str]:
