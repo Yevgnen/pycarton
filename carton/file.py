@@ -31,6 +31,7 @@ class _Path(str):
         paths = (f"{str(path).lstrip('/')}" for path in paths)
         return self.__call__(*paths)
 
+    
 
 def path(root: str) -> _Path:
     return _Path(root)
