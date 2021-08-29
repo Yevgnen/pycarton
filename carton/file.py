@@ -23,7 +23,6 @@ class _Path(str):
         return self.__class__(normalize_path(self))
 
     def __truediv__(self, path):
-        path = f"{str(path).lstrip('/')}"
         return _Path(os.path.join(self, path))
 
     
