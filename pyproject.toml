@@ -8,7 +8,7 @@ packages = [ { include = "carton" } ]
 [tool.poetry.dependencies]
 python = "^3.8"
 pytoml = "^0.1.21"
-ruyaml = "^0.20.0"
+ruyaml = "^0.91.0"
 
 [tool.poetry.dev-dependencies]
 autoflake = "^1.4"
