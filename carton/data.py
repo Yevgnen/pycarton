@@ -57,7 +57,7 @@ def split(
         return split0, split1
 
     def _format_output(x):
-        if stratify:
+        if stratify is not None:
             x = x[:-1]
 
         return x if len(x) > 1 else x[0]
